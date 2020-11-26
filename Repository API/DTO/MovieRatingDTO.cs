@@ -2,10 +2,10 @@
 
 namespace Repository_API.DTO
 {
-    public class MovieRating
+    public class MovieRatingDTO
     {
         public Guid MovieRatingId { get; set; }
         public String UserName { get; set; }
-        public Movie MovieId { get; set; }
+        public MovieDTO MovieId { get; set; }
     }
 }

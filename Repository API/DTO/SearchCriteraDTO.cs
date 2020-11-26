@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Repository_API.DTO
 {
-    public class SearchCritera
+    public class SearchCriteraDTO
     {
         public String Title { get; set; }
         public UInt16 YearOfRelease { get; set; }
-        public String Genre { get; set; }
+        public String[] Genres { get; set; }
         const int maxPageSize = 50;
         public int PageNumber { get; set; } = 1;
         private int _pageSize = 10;

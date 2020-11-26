@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Repository_API.DTO
 {
-    public class Movie
+    public class MovieDTO
     {
         public Guid MovieId { get; set; }
         public String Title { get; set; }

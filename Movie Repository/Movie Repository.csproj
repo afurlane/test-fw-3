@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Repository API\Repository API.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\Mapping Profiles\" />
+  </ItemGroup>
+
 </Project>
