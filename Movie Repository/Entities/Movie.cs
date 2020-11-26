@@ -8,8 +8,9 @@ namespace Movie_Repository.Entities
         public Guid MovieId { get; set; }
         public String Title { get; set; }
         public UInt16 YearOfRelease { get; set; }
-        public String Genre { get; set; }
         public UInt16 RunningTimeInMinutes { get; set; }
-        public IList<MovieRating> movieRatings { get; set; }
+
+        public ICollection<Rating> movieRatings { get; set; }
+        public ICollection<Genre> Genres {get; set;}
     }
 }
