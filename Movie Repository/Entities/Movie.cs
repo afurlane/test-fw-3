@@ -5,12 +5,12 @@ namespace Movie_Repository.Entities
 {
     public class Movie
     {
-        public Guid MovieId { get; set; }
-        public String Title { get; set; }
-        public UInt16 YearOfRelease { get; set; }
-        public UInt16 RunningTimeInMinutes { get; set; }
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public ushort YearOfRelease { get; set; }
+        public ushort RunningTimeInMinutes { get; set; }
 
-        public ICollection<Rating> movieRatings { get; set; }
-        public ICollection<Genre> Genres {get; set;}
+        public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<Genre> Genres {get; set;}
     }
 }

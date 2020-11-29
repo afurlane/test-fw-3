@@ -48,7 +48,7 @@ namespace Movie_Repository
                     finalQuery = yearQuery;
                 }
             }
-            if (searchCriteria.Genres.Length> 0)
+            if (searchCriteria.Genres != null && searchCriteria.Genres.Length> 0)
             {
                 if (finalQuery != null)
                 {

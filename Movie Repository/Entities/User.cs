@@ -6,7 +6,9 @@ namespace Movie_Repository.Entities
 {
     public class User
     {
-        public Guid UserId { get; set; }
-        public String UserName { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }
