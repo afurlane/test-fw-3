@@ -1,8 +1,4 @@
 ﻿using NUnit.Framework;
-using Movie_Repository;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Movie_Repository.Entities;
 using System.Threading.Tasks;

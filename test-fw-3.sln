@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies API", "Movies API\Movies API.csproj", "{E6A569BE-FB77-4DE6-A96A-6CB9F05E66D6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0371C8DB-E007-41A1-A4EF-B49A0FB94C5A} = {0371C8DB-E007-41A1-A4EF-B49A0FB94C5A}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies API Tests", "Movies API Tests\Movies API Tests.csproj", "{49EA0DA7-D5D8-4AC0-97DD-6FE6D632D2C2}"
 EndProject
@@ -11,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository API", "Repositor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movie Repository", "Movie Repository\Movie Repository.csproj", "{0371C8DB-E007-41A1-A4EF-B49A0FB94C5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movie RepositoryTests", "Movie RepositoryTests\Movie RepositoryTests.csproj", "{2F189C54-9F30-4F6A-B76D-F4DE89D3BCD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movie RepositoryTests", "Movie RepositoryTests\Movie RepositoryTests.csproj", "{2F189C54-9F30-4F6A-B76D-F4DE89D3BCD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,6 +9,7 @@ using AutoMapper;
 using Repository_API;
 using Repository_API.DTO;
 using Repository_API.Helpers;
+using Movie_Repository.Infrastructure.Mapping_Profiles;
 
 namespace Movie_Repository.Tests
 {
@@ -26,8 +27,7 @@ namespace Movie_Repository.Tests
             dbOptions = new DbContextOptions<MovieDbContext>();
             dbContext = new MovieDbContext(dbOptions);
             var config = new MapperConfiguration(cfg => {
-                // cfg.AddProfile<AppProfile>();
-                // cfg.CreateMap<Source, Dest>();
+                cfg.AddProfile<RepositoryMappingProfile>();
             });
             mapper = config.CreateMapper();
             movieRepository = new MovieRepository(dbContext, mapper);
@@ -44,22 +44,10 @@ namespace Movie_Repository.Tests
         [Test(Author ="Alessandro Furlanetto", Description ="")]
         public async Task MovieRepositoryTest()
         {
-            SearchCriteraDTO search = new SearchCriteraDTO();
+            SearchMovieCriteraDTO search = new SearchMovieCriteraDTO();
             search.Title = "Snatch";
-            PagedList<MovieDTO> movies = await movieRepository.GetMovies(search);
+            PagedList<MovieDTO> movies = await movieRepository.GetMoviesAsync(search);
             Assert.IsNotNull(movies);
-        }
-
-        [Test()]
-        public void GetMovieTest()
-        {
-            Assert.Fail();
-        }
-
-        [Test()]
-        public void GetMoviesTest()
-        {
-            Assert.Fail();
         }
     }
 }

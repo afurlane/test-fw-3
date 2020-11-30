@@ -1,9 +1,52 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Movies_API</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="4.1.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
+    <PackageReference Include="NSwag.Annotations" Version="13.9.4" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.9.4" />
+    <PackageReference Include="NSwag.Generation.AspNetCore" Version="13.9.4" />
+    <PackageReference Include="NSwag.Generation.WebApi" Version="13.9.4" />
+    <PackageReference Include="Scrutor" Version="3.3.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+  </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Movie Repository\Movie Repository.csproj" />
+    <ProjectReference Include="..\Repository API\Repository API.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+  </ItemGroup>
+
+  <Target Name="CopuRepositoryAssembly" AfterTargets="Build">
+    <ItemGroup>
+      <MovieRepositoryAssemblyFiles Include="$(SolutionDir)Movie Repository\$(OutDir)Movie Repository.dll" />
+      <MovieRepositoryAssemblyDebugFiles Include="$(SolutionDir)Movie Repository\$(OutDir)Movie Repository.pdb" />
+    </ItemGroup>
+
+    <Message Text="Copy source repository Assembly: @(MovieRepositoryAssemblyFiles)" Importance="high" />
+    <Message Text="DestFiles:&#xD;&#xA;      @(MovieRepositoryAssemblyFiles->'$(SolutionDir)Movies API\$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')" Importance="high" />
+    <Copy SourceFiles="@(MovieRepositoryAssemblyFiles)" DestinationFiles="@(MovieRepositoryAssemblyFiles->'$(SolutionDir)Movies API\$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')" />
+
+    <Message Text="Copy source repository Assembly: @(MovieRepositoryAssemblyDebugFiles)" Importance="high" Condition="'$(Configuration)'=='Debug'" />
+    <Message Text="DestFiles:&#xD;&#xA;      @(MovieRepositoryAssemblyDebugFiles->'$(SolutionDir)Movies API\$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')" Importance="high" Condition="'$(Configuration)'=='Debug'" />
+    <Copy SourceFiles="@(MovieRepositoryAssemblyDebugFiles)" DestinationFiles="@(MovieRepositoryAssemblyDebugFiles->'$(SolutionDir)Movies API\$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')" Condition="'$(Configuration)'=='Debug'" />
+  </Target>
 </Project>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Movie_Repository.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,11 @@ namespace Movie_Repository
 
         protected Random random = new Random();
 
-        public MovieDbContext(DbContextOptions<MovieDbContext> options): base(options)
+        public MovieDbContext(DbContextOptions<MovieDbContext> options) : base(options)
+        {
+        }
+
+        public MovieDbContext(): base(new DbContextOptions<MovieDbContext>())
         {
         }
         

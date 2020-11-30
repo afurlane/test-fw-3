@@ -7,8 +7,7 @@ namespace Repository_API
 {
     public interface IMovieRepository
     {
-        Task<MovieDTO> GetMovie(Guid MovieId);
-        // MovieRating GetUserRating(Guid MovieRatingId);
-        Task<PagedList<MovieDTO>> GetMovies(SearchCriteraDTO searchCriteria);
+        Task<PagedList<MovieDTO>> GetUserRatingsAsync(SearchUserCriteraDTO searchCriteria);
+        Task<PagedList<MovieDTO>> GetMoviesAsync(SearchMovieCriteraDTO searchCriteria);
     }
 }

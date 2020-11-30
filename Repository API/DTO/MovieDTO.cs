@@ -6,11 +6,22 @@ namespace Repository_API.DTO
 {
     public class MovieDTO
     {
-        public Guid MovieId { get; set; }
-        public String Title { get; set; }
-        public UInt16 YearOfRelease { get; set; }
-        public String Genre { get; set; }
-        public UInt16 RunningTimeInMinutes { get; set; }
-        public Double AverageRating { get; set; }
+        public string Title { get; set; }
+        public ushort YearOfRelease { get; set; }
+        public ICollection<GenreDTO> Genres { get; set; }
+        public ushort RunningTimeInMinutes { get; set; }
+        public ICollection<RatingDTO> Ratings { get; set; }
+        
+        public double AverageRating() {
+            double AverageRating = 0.0;
+            if (Ratings != null && Ratings.Count > 0) {
+                foreach (RatingDTO rating in Ratings)
+                {
+                    AverageRating += rating.Value;
+                }
+                AverageRating = Math.Round(AverageRating * 2, MidpointRounding.AwayFromZero) / 2;
+            }
+            return AverageRating;
+        }
     }
 }
