@@ -81,12 +81,12 @@ namespace Movie_Repository
                 new { Id = usersGuid[2], Name = "user2" }, new { Id = usersGuid[3], Name = "user3" },
                 new { Id = usersGuid[4], Name = "user4" }, new { Id = usersGuid[5], Name = "user5" },
                 new { Id = usersGuid[6], Name = "user6" }, new { Id = usersGuid[7], Name = "user7" },
-                new { Id = usersGuid[8], Name = "user0" }, new { Id = usersGuid[9], Name = "user1" },
-                new { Id = usersGuid[10], Name = "user2" }, new { Id = usersGuid[11], Name = "user3" },
-                new { Id = usersGuid[12], Name = "user4" }, new { Id = usersGuid[13], Name = "user5" },
-                new { Id = usersGuid[14], Name = "user6" }, new { Id = usersGuid[15], Name = "user7" },
-                new { Id = usersGuid[16], Name = "user6" }, new { Id = usersGuid[17], Name = "user7" },
-                new { Id = usersGuid[18], Name = "user6" }, new { Id = usersGuid[19], Name = "user7" }
+                new { Id = usersGuid[8], Name = "user8" }, new { Id = usersGuid[9], Name = "user9" },
+                new { Id = usersGuid[10], Name = "user10" }, new { Id = usersGuid[11], Name = "user11" },
+                new { Id = usersGuid[12], Name = "user12" }, new { Id = usersGuid[13], Name = "user13" },
+                new { Id = usersGuid[14], Name = "user14" }, new { Id = usersGuid[15], Name = "user15" },
+                new { Id = usersGuid[16], Name = "user16" }, new { Id = usersGuid[17], Name = "user17" },
+                new { Id = usersGuid[18], Name = "user18" }, new { Id = usersGuid[19], Name = "user19" }
             );
 
             modelBuilder.Entity<Genre>().Property(p => p.Id).IsRequired();
@@ -130,20 +130,22 @@ namespace Movie_Repository
                 ));
             modelBuilder.Entity<Movie>().HasMany<Rating>(p => p.Ratings).WithOne(p => p.Movie).HasForeignKey(p => p.MovieId);
             modelBuilder.Entity<Movie>().HasData(
-            new { Id = moviesGuid[0], RunningTimeInMinutes = (ushort)135, Title = "The hunt for a red october", YearOfRelease = (ushort)1990 },
-            new { Id = moviesGuid[1], RunningTimeInMinutes = (ushort)120, Title = "Manhunter", YearOfRelease = (ushort)1986 },
-            new { Id = moviesGuid[2], RunningTimeInMinutes = (ushort)117, Title = "The Big Lebowski", YearOfRelease = (ushort)1998 },
-            new { Id = moviesGuid[3], RunningTimeInMinutes = (ushort)98, Title = "WALL·E", YearOfRelease = (ushort)2008 },
-            new { Id = moviesGuid[4], RunningTimeInMinutes = (ushort)128, Title = "Rules of Engagement", YearOfRelease = (ushort)2000 },
-            new { Id = moviesGuid[5], RunningTimeInMinutes = (ushort)118, Title = "Be Cool", YearOfRelease = (ushort)2005 },
-            new { Id = moviesGuid[6], RunningTimeInMinutes = (ushort)104, Title = "Snatch", YearOfRelease = (ushort)2000 },
-            new { Id = moviesGuid[7], RunningTimeInMinutes = (ushort)109, Title = "The Thing", YearOfRelease = (ushort)1982 },
-            new { Id = moviesGuid[8], RunningTimeInMinutes = (ushort)149, Title = "2001: A Space Odyssey", YearOfRelease = (ushort)1968 },
-            new { Id = moviesGuid[9], RunningTimeInMinutes = (ushort)94, Title = "Life of Brian", YearOfRelease = (ushort)1979 }
+            new { Id = moviesGuid[0], RunningTimeInMinutes = 135, Title = "The hunt for a red october", YearOfRelease = 1990 },
+            new { Id = moviesGuid[1], RunningTimeInMinutes = 120, Title = "Manhunter", YearOfRelease = 1986 },
+            new { Id = moviesGuid[2], RunningTimeInMinutes = 117, Title = "The Big Lebowski", YearOfRelease = 1998 },
+            new { Id = moviesGuid[3], RunningTimeInMinutes = 98, Title = "WALL·E", YearOfRelease = 2008 },
+            new { Id = moviesGuid[4], RunningTimeInMinutes = 128, Title = "Rules of Engagement", YearOfRelease = 2000 },
+            new { Id = moviesGuid[5], RunningTimeInMinutes = 118, Title = "Be Cool", YearOfRelease = 2005 },
+            new { Id = moviesGuid[6], RunningTimeInMinutes = 104, Title = "Snatch", YearOfRelease = 2000 },
+            new { Id = moviesGuid[7], RunningTimeInMinutes = 109, Title = "The Thing", YearOfRelease = 1982 },
+            new { Id = moviesGuid[8], RunningTimeInMinutes = 149, Title = "2001: A Space Odyssey", YearOfRelease = 1968 },
+            new { Id = moviesGuid[9], RunningTimeInMinutes = 94, Title = "Life of Brian", YearOfRelease = 1979 }
             );
 
             modelBuilder.Entity<Rating>().Property(p => p.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Rating>().Property(p => p.Value).IsRequired();
+            // This would prevent duplicated user rating insert per movie
+            modelBuilder.Entity<Rating>().HasAlternateKey(p => new { p.MovieId, p.UserId });
             modelBuilder.Entity<Rating>().HasOne<Movie>(p => p.Movie).WithMany(p => p.Ratings).HasForeignKey(p => p.MovieId);
             modelBuilder.Entity<Rating>().HasOne<User>(p => p.User).WithMany(p => p.Ratings).HasForeignKey(p => p.UserId);
             modelBuilder.Entity<Rating>().HasData(
@@ -166,62 +168,23 @@ namespace Movie_Repository
                 new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[16], MovieId = moviesGuid[7] },
                 new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[17], MovieId = moviesGuid[8] },
                 new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[18], MovieId = moviesGuid[9] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[19], MovieId = moviesGuid[0] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[0], MovieId = moviesGuid[1] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[1], MovieId = moviesGuid[2] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[2], MovieId = moviesGuid[3] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[3], MovieId = moviesGuid[4] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[4], MovieId = moviesGuid[5] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[5], MovieId = moviesGuid[6] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[6], MovieId = moviesGuid[7] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[7], MovieId = moviesGuid[8] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[8], MovieId = moviesGuid[9] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[9], MovieId = moviesGuid[0] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[10], MovieId = moviesGuid[1] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[11], MovieId = moviesGuid[2] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[12], MovieId = moviesGuid[3] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[13], MovieId = moviesGuid[4] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[14], MovieId = moviesGuid[5] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[15], MovieId = moviesGuid[6] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[16], MovieId = moviesGuid[7] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[17], MovieId = moviesGuid[8] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[18], MovieId = moviesGuid[9] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[19], MovieId = moviesGuid[0] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[0], MovieId = moviesGuid[1] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[1], MovieId = moviesGuid[3] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[2], MovieId = moviesGuid[4] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[3], MovieId = moviesGuid[5] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[4], MovieId = moviesGuid[6] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[5], MovieId = moviesGuid[7] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[6], MovieId = moviesGuid[8] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[7], MovieId = moviesGuid[9] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[8], MovieId = moviesGuid[0] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[9], MovieId = moviesGuid[1] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[10], MovieId = moviesGuid[2] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[11], MovieId = moviesGuid[3] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[12], MovieId = moviesGuid[4] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[13], MovieId = moviesGuid[5] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[14], MovieId = moviesGuid[6] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[15], MovieId = moviesGuid[7] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[16], MovieId = moviesGuid[8] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[17], MovieId = moviesGuid[9] },
-                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[18], MovieId = moviesGuid[0] }
+                new { Id = Guid.NewGuid(), Value = GetRatingValue(), UserId = usersGuid[19], MovieId = moviesGuid[0] }
                 );
         }
 
-        private ushort GetRatingValue()
+        private int GetRatingValue()
         {
-            return (ushort)random.Next(1, 5);
+            return random.Next(1, 5);
         }
 
-        private ushort GetCustomerId()
+        private int GetCustomerId()
         {
-            return (ushort)random.Next(0, 19);
+            return random.Next(0, 19);
         }
 
-        private ushort GetMoviesId()
+        private int GetMoviesId()
         {
-            return (ushort)random.Next(0, 9);
+            return random.Next(0, 9);
         }
     }
 }

@@ -7,8 +7,8 @@ namespace Movie_Repository.Entities
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public ushort YearOfRelease { get; set; }
-        public ushort RunningTimeInMinutes { get; set; }
+        public int YearOfRelease { get; set; }
+        public int RunningTimeInMinutes { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Genre> Genres {get; set;}

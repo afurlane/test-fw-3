@@ -77,7 +77,10 @@ namespace Movies_API
             });
 
             app.UseOpenApi();
-            app.UseSwaggerUi3();
+            app.UseSwaggerUi3(settings =>
+            {
+                settings.DocumentTitle = "Movie RESTful API - FreeWheel C#/.NET test project #3";
+            });
 
             app.UseHttpsRedirection();
 
