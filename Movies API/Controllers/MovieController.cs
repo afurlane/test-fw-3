@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 namespace Movies_API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    [OpenApiController("MovieController")]
-    public class MovieController: ControllerBase
+    [Route("[controller]/[action]")]
+    [ApiConventionType(typeof(DefaultApiConventions))]
+    public class MovieController : ControllerBase
     {
         private readonly ILogger<MovieController> logger;
         private readonly IMovieRepository movieRepository;
@@ -27,7 +27,8 @@ namespace Movies_API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ActionName("Movie")]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PagedList<MovieDTO>>> GetMoviesAsync([FromQuery] SearchMovieCriteraDTO searchCritera)
         {
@@ -43,7 +44,8 @@ namespace Movies_API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ActionName("UserRatings")]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PagedList<MovieDTO>>> GetUserRatingsAsync([FromQuery] SearchUserCriteraDTO searchCritera)
         {
@@ -58,5 +60,33 @@ namespace Movies_API.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet]
+        [ActionName("FiveTopRatedMovies")]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+        public async Task<ActionResult<List<MovieDTO>>> GetFiveTopRatedMoviesAsync()
+        {
+            List<MovieDTO> topRatedMovies= await movieRepository.GetFiveTopRatedMoviesAsync();
+            if (topRatedMovies != null && topRatedMovies.Count > 0)
+            {
+                return topRatedMovies;
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ActionName("InsertUserRating")]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Post))]
+        public async Task<ActionResult> UpdateUserRatingAsync([FromBody] UserRatingDTO userRatingDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                await movieRepository.UpdateUserRatingAsync(userRatingDTO);
+                return Ok();
+            }
+            else
+                return BadRequest(ModelState);
+        }
+
     }
 }

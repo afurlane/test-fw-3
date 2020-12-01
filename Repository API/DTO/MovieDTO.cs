@@ -4,14 +4,12 @@ using System.Text;
 
 namespace Repository_API.DTO
 {
-    public class MovieDTO
+    public class MovieDTO: BaseMovieDTO
     {
-        public string Title { get; set; }
-        public ushort YearOfRelease { get; set; }
         public ICollection<GenreDTO> Genres { get; set; }
-        public ushort RunningTimeInMinutes { get; set; }
         public ICollection<RatingDTO> Ratings { get; set; }
-        
+
+        // This is good candidate for https://docs.automapper.org/en/stable/Queryable-Extensions.html#aggregations
         public double AverageRating() {
             double AverageRating = 0.0;
             if (Ratings != null && Ratings.Count > 0) {
