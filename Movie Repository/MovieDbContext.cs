@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Movie_Repository.Entities;
 using System;
-using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace Movie_Repository
 {
@@ -12,8 +11,6 @@ namespace Movie_Repository
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Genre> Genres { get; set; }
-
-        protected Random random = new Random();
 
         public MovieDbContext(DbContextOptions<MovieDbContext> options) : base(options)
         {
@@ -174,17 +171,17 @@ namespace Movie_Repository
 
         private int GetRatingValue()
         {
-            return random.Next(1, 5);
+            return RandomNumberGenerator.GetInt32(1, 5);
         }
 
         private int GetCustomerId()
         {
-            return random.Next(0, 19);
+            return RandomNumberGenerator.GetInt32(0, 19);
         }
 
         private int GetMoviesId()
         {
-            return random.Next(0, 9);
+            return RandomNumberGenerator.GetInt32(0, 9);
         }
     }
 }

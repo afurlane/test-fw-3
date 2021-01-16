@@ -18,7 +18,7 @@ namespace Movie_Repository.Infrastructure.Mapping_Extensions
             Expression<Func<IQueryable<TModel>, TModelResult>> queryFunc) where TData : class
         {
             //Map the expressions
-            Func<IQueryable<TData>, TDataResult> mappedQueryFunc = mapper.MapExpression<Expression<Func<IQueryable<TData>, TDataResult>>>(queryFunc).Compile();
+            Func<IQueryable<TData>, TDataResult> mappedQueryFunc = mapper.MapExpression<Expression<Func<IQueryable<TData>, TDataResult>>>(queryFunc)?.Compile();
 
             //execute the query
             return mapper.Map<TDataResult, TModelResult>(mappedQueryFunc(query));
