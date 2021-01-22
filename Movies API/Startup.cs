@@ -79,7 +79,7 @@ namespace Movies_API
             app.UseOpenApi();
             app.UseSwaggerUi3(settings =>
             {
-                settings.DocumentTitle = "Movie RESTful API - FreeWheel C#/.NET test project #3";
+                settings.DocumentTitle = "Movie RESTful API - FW C#/.NET test project";
             });
 
             app.UseHttpsRedirection();
