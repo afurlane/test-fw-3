@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NSwag.Annotations;
 using Repository_API;
 using Repository_API.DTO;
 using Repository_API.Helpers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Movies_API.Controllers
@@ -32,15 +29,12 @@ namespace Movies_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PagedList<MovieDTO>>> GetMoviesAsync([FromQuery] SearchMovieCriteraDTO searchCritera)
         {
-            if (searchCritera.IsSearchValid) { 
-                PagedList<MovieDTO> pagedMovies = await movieRepository.GetMoviesAsync(searchCritera);
-                if (pagedMovies != null && pagedMovies.Count > 0)
-                {
-                    return pagedMovies;
-                }
-                return NotFound();
+            PagedList<MovieDTO> pagedMovies = await movieRepository.GetMoviesAsync(searchCritera);
+            if (pagedMovies != null && pagedMovies.Count > 0)
+            {
+                return pagedMovies;
             }
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpGet]
@@ -49,16 +43,12 @@ namespace Movies_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PagedList<MovieDTO>>> GetUserRatingsAsync([FromQuery] SearchUserCriteraDTO searchCritera)
         {
-            if (searchCritera.IsSearchValid)
+            PagedList<MovieDTO> pagedMovies = await movieRepository.GetUserRatingsAsync(searchCritera);
+            if (pagedMovies != null && pagedMovies.Count > 0)
             {
-                PagedList<MovieDTO> pagedMovies = await movieRepository.GetUserRatingsAsync(searchCritera);
-                if (pagedMovies != null && pagedMovies.Count > 0)
-                {
-                    return pagedMovies;
-                }
-                return NotFound();
+                return pagedMovies;
             }
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpGet]
@@ -79,13 +69,8 @@ namespace Movies_API.Controllers
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Post))]
         public async Task<ActionResult> UpdateUserRatingAsync([FromBody] UserRatingDTO userRatingDTO)
         {
-            if (ModelState.IsValid)
-            {
-                await movieRepository.UpdateUserRatingAsync(userRatingDTO);
-                return Ok();
-            }
-            else
-                return BadRequest(ModelState);
+            await movieRepository.UpdateUserRatingAsync(userRatingDTO);
+            return Ok();
         }
 
     }
