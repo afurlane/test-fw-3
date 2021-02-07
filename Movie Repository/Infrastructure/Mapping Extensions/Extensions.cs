@@ -21,7 +21,7 @@ namespace Movie_Repository.Infrastructure.Mapping_Extensions
             Func<IQueryable<TData>, TDataResult> mappedQueryFunc = mapper.MapExpression<Expression<Func<IQueryable<TData>, TDataResult>>>(queryFunc)?.Compile();
 
             //execute the query
-            return mapper.Map<TDataResult, TModelResult>(mappedQueryFunc(query));
+            return await Task.Run(() => mapper.Map<TDataResult, TModelResult>(mappedQueryFunc(query)));
         }
 
         internal static async Task<ICollection<TModel>> GetItemsAsync<TModel, TData>(this IQueryable<TData> query, IMapper mapper,
