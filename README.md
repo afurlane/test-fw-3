@@ -31,6 +31,10 @@ There is also support for pagination of results in some calls.
 
  This is a little example of how I think a project should be.
 
+ Run coverage whith:
+ 
+ dotnet test --collect:"XPlat Code Coverage" --settings coverlet.runsettings
+
  TODO:
  - Add full API model validations
  - Convert MovieDTO.AverageRating to LINQ expression.
