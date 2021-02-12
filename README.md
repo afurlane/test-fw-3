@@ -40,3 +40,6 @@ There is also support for pagination of results in some calls.
  - Convert MovieDTO.AverageRating to LINQ expression.
  - Complete response from API (error response)
  - Find a better solution for a pattern updare||insert
+
+ ### Useful GC link
+ https://docs.microsoft.com/en-us/dotnet/core/run-time-config/garbage-collector

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SonarQubeAnalysisProperties  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <Property Name="sonar.sourceEncoding">UTF-8</Property>
+  <!-- Enable the following for logging -->
+  <!--
+  <Property Name="sonar.verbose">true</Property>
+  <Property Name="sonar.log.level">TRACE</Property>
+  -->
+  <Property Name="sonar.cs.opencover.reportsPaths">*/coverage.opencover.xml</Property>
+  <Property Name="sonar.exclusions">*/coverage.opencover.xml,WebApp/wwwroot/lib/bootstrap/dist/css/**</Property>
+  <Property Name="sonar.javascript.exclusions">WebApp/wwwroot/lib/bootstrap/**,WebApp/wwwroot/lib/jquery**</Property>
+</SonarQubeAnalysisProperties>

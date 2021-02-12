@@ -1,0 +1,11 @@
+﻿[Unit]
+Description=Test FW 3 Movies API
+
+[Service]
+WorkingDirectory=/usr/local/test-fw-3/current
+ExecStart=/usr/bin/dotnet /usr/local/test-fw-3/current/WebApp/webapp.dll
+SyslogIdentifier=test-fw-3-MA
+User=afurlane
+
+[Install]
+WantedBy=multi-user.target

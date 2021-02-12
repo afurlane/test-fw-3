@@ -19,11 +19,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3A0C344D-B923-4B37-80CC-D38681DD2E3B}"
 	ProjectSection(SolutionItems) = preProject
 		coverlet.runsettings = coverlet.runsettings
+		Jenkinsfile = Jenkinsfile
 		LICENSE = LICENSE
 		README.md = README.md
+		SonarQube.Analysis.xml = SonarQube.Analysis.xml
+		test-fw-3.service = test-fw-3.service
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSoapClient", "TestSoapClient\TestSoapClient.csproj", "{4C850EEA-CACA-495A-896C-B73FA9B8608E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSoapClient", "TestSoapClient\TestSoapClient.csproj", "{4C850EEA-CACA-495A-896C-B73FA9B8608E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
